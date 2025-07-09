@@ -75,10 +75,10 @@ function ContactForm() {
 
     emailjs
       .sendForm(
-        "service_snzvmu8", // Service ID
-        "template_ojvfe1p", // Template ID
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         form.current,
-        "UVvo0JzSQXOAhuwhv" // Public Key
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       )
       .then(
         () => {
