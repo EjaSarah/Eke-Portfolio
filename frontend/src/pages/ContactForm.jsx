@@ -1,20 +1,22 @@
+// src/pages/Contact.jsx
+import { useState } from "react";
 import styled from "styled-components";
-import { useRef } from "react";
-import emailjs from "@emailjs/browser";
-import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import toast, { Toaster } from "react-hot-toast";
 
-// Styled components
+// BACKEND URL (update before deploying)
+const BACKEND_URL = "http://localhost:5000/contact"; // or your live server
 
-// Styled components
+// Styled Components
 const ContactSection = styled.section`
-  min-height: 100vh; /* Full viewport height */
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: #0a0a0a; /* Optional dark background */
+  background-color: #0a0a0a;
   color: white;
 `;
 
@@ -67,30 +69,25 @@ const Button = styled.button`
 
 // Functional Component
 function ContactForm() {
-  const form = useRef();
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const sendEmail = (e) => {
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.loading("Sending message...");
+    toast.loading("Sending...");
 
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        form.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      )
-      .then(
-        () => {
-          toast.dismiss();
-          toast.success("Message sent successfully!");
-          form.current.reset();
-        },
-        (error) => {
-          toast.dismiss();
-          toast.error("Failed to send message: " + error.text);
-        }
-      );
+    try {
+      await axios.post(BACKEND_URL, form);
+      toast.dismiss();
+      toast.success("Message sent successfully!");
+      setForm({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.dismiss();
+      toast.error("Failed to send message. Try again.");
+    }
   };
 
   return (
@@ -103,20 +100,30 @@ function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <Form ref={form} onSubmit={sendEmail}>
+          <Form onSubmit={handleSubmit}>
             <Input
               type="text"
-              name="from_name"
+              name="name"
               placeholder="Your Name"
+              value={form.name}
+              onChange={handleChange}
               required
             />
             <Input
               type="email"
-              name="from_email"
+              name="email"
               placeholder="Your Email"
+              value={form.email}
+              onChange={handleChange}
               required
             />
-            <TextArea name="message" placeholder="Your Message" required />
+            <TextArea
+              name="message"
+              placeholder="Your Message"
+              value={form.message}
+              onChange={handleChange}
+              required
+            />
             <Button type="submit">Send Message</Button>
           </Form>
         </motion.div>

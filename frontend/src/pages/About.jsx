@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import profileImg from "../assets/images/bg-image.jpg"; // Replace with actual image path
+import profileImg from "../assets/images/bg-image.jpg";
 
 const AboutSection = styled.section`
   display: flex;
@@ -25,12 +25,12 @@ const ProfileImage = styled.img`
   border-radius: 50%;
   object-fit: cover;
   position: relative;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 15px ${({ theme }) => theme.accent}55; /* Transparent accent */
 `;
 
 const TextContent = styled.div`
   flex: 2;
-  color: white;
+  color: ${({ theme }) => theme.color}; /* Uses light or dark text */
   font-size: 1.1rem;
   line-height: 1.8;
 `;

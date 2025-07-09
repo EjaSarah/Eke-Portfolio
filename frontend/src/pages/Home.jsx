@@ -6,8 +6,8 @@ const Section = styled.section`
   justify-content: center;
   height: 80vh;
   text-align: center;
-  color: gold;
   padding: 2rem;
+  color: ${(props) => props.theme.accent}; /* ✅ Dynamic accent color */
 `;
 
 const IntroText = styled.h1`
