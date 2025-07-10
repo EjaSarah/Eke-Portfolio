@@ -2,7 +2,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
 
   * {
     padding: 0;

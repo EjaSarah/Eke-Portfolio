@@ -1,13 +1,9 @@
-// src/pages/Contact.jsx
-import { useState } from "react";
+import { useRef } from "react";
 import styled from "styled-components";
-import axios from "axios";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
-
-// BACKEND URL (update before deploying)
-const BACKEND_URL = "http://localhost:5000/contact"; // or your live server
+import emailjs from "emailjs-com";
 
 // Styled Components
 const ContactSection = styled.section`
@@ -67,27 +63,29 @@ const Button = styled.button`
   }
 `;
 
-// Functional Component
+// Component
 function ContactForm() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const formRef = useRef();
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    toast.loading("Sending...");
+    const toastId = toast.loading("Sending...");
 
-    try {
-      await axios.post(BACKEND_URL, form);
-      toast.dismiss();
-      toast.success("Message sent successfully!");
-      setForm({ name: "", email: "", message: "" });
-    } catch (error) {
-      console.error("Error:", error);
-      toast.dismiss();
-      toast.error("Failed to send message. Try again.");
-    }
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+
+      .then(() => {
+        toast.success("Message sent successfully!", { id: toastId });
+        formRef.current.reset();
+      })
+      .catch(() => {
+        toast.error("Failed to send message. Try again.", { id: toastId });
+      });
   };
 
   return (
@@ -100,30 +98,20 @@ function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <Form onSubmit={handleSubmit}>
+          <Form ref={formRef} onSubmit={handleSubmit}>
             <Input
               type="text"
-              name="name"
+              name="user_name"
               placeholder="Your Name"
-              value={form.name}
-              onChange={handleChange}
               required
             />
             <Input
               type="email"
-              name="email"
+              name="user_email"
               placeholder="Your Email"
-              value={form.email}
-              onChange={handleChange}
               required
             />
-            <TextArea
-              name="message"
-              placeholder="Your Message"
-              value={form.message}
-              onChange={handleChange}
-              required
-            />
+            <TextArea name="message" placeholder="Your Message" required />
             <Button type="submit">Send Message</Button>
           </Form>
         </motion.div>

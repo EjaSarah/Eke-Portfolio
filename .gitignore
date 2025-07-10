@@ -1,31 +1,5 @@
-# Node.js dependencies
 node_modules/
-npm-debug.log*
-
-# Environment files
-.env
-.env.*
-
-# Build output
 dist/
+.env
 .vite/
-
-# macOS
 .DS_Store
-
-# Windows
-Thumbs.db
-Desktop.ini
-
-# VSCode
-.vscode/
-
-# Cache and system files
-.cache/
-*.tsbuildinfo
-*.log
-*.log.*
-
-# Optional frontend-only ignore
-frontend/node_modules/
-frontend/dist/
