@@ -4,9 +4,9 @@ A modern and responsive portfolio website built using **React + Vite**, designed
 
 ---
 
-## 🌟 Live Demo
+## 🚀 Live Demo
 
-🌍 [View Deployed Site](https://your-deployment-url.vercel.app)
+🌐 [View Website](https://eke-portfolio-ruddy.vercel.app/)
 
 ---
 
