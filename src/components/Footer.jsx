@@ -1,10 +1,15 @@
 // src/components/Footer.jsx
 import styled from "styled-components";
-import { FaPhone, FaInstagram, FaFacebook } from "react-icons/fa";
+import {
+  FaPhone,
+  FaInstagram,
+  FaFacebook,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 
 const FooterWrapper = styled.footer`
-  background-color: #111;
-  color: #f5f5f5;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
   font-size: 0.9rem;
   padding: 2rem;
 `;
@@ -33,7 +38,11 @@ const FooterBottom = styled.div`
   border-top: 1px solid #333;
   padding-top: 1rem;
   font-size: 0.85rem;
-  color: #ccc;
+  border-top: 1px solid ${({ theme }) => theme.cardBg};
+  color: ${({ theme }) => theme.text};
+  strong {
+    color: ${({ theme }) => theme.accent};
+  }
 
   strong {
     color: gold;
@@ -55,7 +64,10 @@ function Footer() {
 
         <FooterColumn>
           <FooterTitle>Office Address</FooterTitle>
-          <p>2 Wahb Clos, Surulere, Lagos, Nigeria</p>
+          <p>
+            <FaMapMarkerAlt style={{ marginRight: "8px" }} />2 Wahb Clos,
+            Surulere, Lagos, Nigeria.
+          </p>
         </FooterColumn>
 
         <FooterColumn>

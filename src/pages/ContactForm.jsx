@@ -12,8 +12,8 @@ const ContactSection = styled.section`
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: #0a0a0a;
-  color: white;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Container = styled.div`
@@ -49,8 +49,8 @@ const TextArea = styled.textarea`
 `;
 
 const Button = styled.button`
-  background-color: gold;
-  color: black;
+  background-color: ${({ theme }) => theme.accent};
+  color: ${({ theme }) => theme.text};
   padding: 1rem;
   font-size: 1rem;
   border: none;

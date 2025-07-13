@@ -5,8 +5,8 @@ import { workItems } from "../data/workItems";
 
 const GallerySection = styled.section`
   padding: 4rem 2rem;
-  background-color: #111;
-  color: white;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h2`
@@ -52,7 +52,7 @@ const OverlayText = styled.div`
   right: 0;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.6);
-  color: gold;
+  color: ${({ theme }) => theme.accent};
   opacity: 0;
   transition: 0.3s ease;
   border-radius: 0 0 10px 10px;
@@ -69,7 +69,7 @@ const ModalOverlay = styled(motion.div)`
 `;
 
 const ModalContent = styled(motion.div)`
-  background: #222;
+  background: ${({ theme }) => theme.cardBg};
   padding: 2rem;
   border-radius: 12px;
   text-align: center;
@@ -88,8 +88,8 @@ const ModalImage = styled.img`
 const CloseButton = styled.button`
   margin-top: 1rem;
   padding: 0.6rem 1.2rem;
-  background: gold;
-  color: black;
+  background: ${({ theme }) => theme.accent};
+  color: ${({ theme }) => theme.text};
   font-weight: bold;
   border: none;
   border-radius: 5px;
